@@ -8,6 +8,7 @@ let DomoModel = {};
 // converts the string ID to a real Mongo ID
 const convertId = mongoose.Types.ObjectId;
 const setName = (name) => _.escape(name).trim();
+const setAlive = (alive) => _.escape(alive).trim();
 
 const DomoSchema = new mongoose.Schema({
   name: {
@@ -21,6 +22,13 @@ const DomoSchema = new mongoose.Schema({
     type: Number,
     min: 0,
     required: true,
+  },
+
+  alive: {
+    type: String,
+    required: true,
+    trim: true,
+    set: setAlive,
   },
 
   owner: {
@@ -38,6 +46,7 @@ const DomoSchema = new mongoose.Schema({
 DomoSchema.statics.toAPI = (doc) => ({
   name: doc.name,
   age: doc.age,
+  alive: doc.alive,
 });
 
 DomoSchema.statics.findByOwner = (ownerId, callback) => {

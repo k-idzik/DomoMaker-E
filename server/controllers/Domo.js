@@ -29,13 +29,14 @@ const getDomos = (request, response) => {
 };
 
 const makeDomo = (req, res) => {
-  if (!req.body.name || !req.body.age) {
-    return res.status(400).json({ error: 'RAWR! Both name and age are required' });
+  if (!req.body.name || !req.body.age || !req.body.alive) {
+    return res.status(400).json({ error: 'RAWR! Name, age, and alive are required' });
   }
 
   const domoData = {
     name: req.body.name,
     age: req.body.age,
+    alive: req.body.alive,
     owner: req.session.account._id,
   };
 
